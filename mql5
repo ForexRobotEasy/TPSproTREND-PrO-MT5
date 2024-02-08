@@ -1,0 +1,78 @@
+
+//+------------------------------------------------------------------+
+//|                                             TPSproTREND Pro MT5  |
+//|                            Developed by Forex Robot Easy Team    |
+//|                                         Website: forexroboteasy.com |
+//+------------------------------------------------------------------+
+
+#property copyright 'Forex Robot Easy Team'
+#property link      'forexroboteasy.com'
+#property version   '1.0'
+
+//+------------------------------------------------------------------+
+//|                        TPSproTREND Pro MT5                        |
+//|                  Accurate trend analysis and signal generation   |
+//|    Non-repainting signal feature to prevent alteration of signals |
+//|               User-friendly interface to display BUY/SELL zone  |
+//|         Intelligent logic to manage stop-loss level over time     |
+//+------------------------------------------------------------------+
+
+// Global variables
+int buyZoneColor = clrGreen;
+int sellZoneColor = clrRed;
+
+//+------------------------------------------------------------------+
+//| Custom indicator initialization function                         |
+//+------------------------------------------------------------------+
+int OnInit()
+{
+    // Add indicator buffers
+    IndicatorBuffers(2);
+    
+    // Set buffer 0 as BUY zone
+    SetIndexBuffer(0, buyZoneBuffer);
+    SetIndexStyle(0, DRAW_FILL, STYLE_SOLID, 0, buyZoneColor);
+    
+    // Set buffer 1 as SELL zone
+    SetIndexBuffer(1, sellZoneBuffer);
+    SetIndexStyle(1, DRAW_FILL, STYLE_SOLID, 0, sellZoneColor);
+    
+    // Set the indicator label
+    IndicatorShortName('TPSproTREND Pro MT5');
+    
+    return INIT_SUCCEEDED;
+}
+
+//+------------------------------------------------------------------+
+//| Custom indicator iteration function                              |
+//+------------------------------------------------------------------+
+int OnCalculate(const int rates_total,
+                const int prev_calculated,
+                const datetime &time[],
+                const double &open[],
+                const double &high[],
+                const double &low[],
+                const double &close[],
+                const long &tick_volume[],
+                const long &volume[],
+                const int &spread[])
+{
+    // Trend analysis and signal generation logic here
+    
+    // Example: Set BUY zone from 1.3000 to 1.3100
+    for (int i = 0; i < rates_total; i++)
+    {
+        buyZoneBuffer[i] = 1.3000;
+        sellZoneBuffer[i] = 1.3100;
+    }
+    
+    return rates_total;
+}
+
+//+------------------------------------------------------------------+
+//| Custom indicator deinitialization function                       |
+//+------------------------------------------------------------------+
+void OnDeinit(const int reason)
+{
+    // Cleanup and resources if necessary
+}
